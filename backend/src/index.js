@@ -7,6 +7,7 @@ import albumRoutes from "./routes/album.route.js";
 import songRoutes from "./routes/song.route.js";
 import statRoutes from "./routes/stat.route.js";
 import { connectDB } from "./lib/db.js";
+import cors from "cors";
 
 import { clerkMiddleware } from "@clerk/express";
 
@@ -14,6 +15,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(clerkMiddleware());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 const PORT = process.env.PORT || 9000;
 
