@@ -5,6 +5,12 @@ import { Clock, Play } from "lucide-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+const formatDuration = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+};
+
 const AlbumPage = () => {
   const { albumId } = useParams();
 
@@ -78,7 +84,7 @@ const AlbumPage = () => {
               {/* Table content */}
               <div className="px-6">
                 <div className="space-y-2 py-4">
-                  {currentAlbum?.songs[0].map((song, index) => (
+                  {currentAlbum?.songs.map((song, index) => (
                     <div
                       key={index}
                       className={`grid grid-cols-[16px_4fr_2fr_1fr] gap-4 px-4 py-2 text-sm text-zinc-400 hover:text-white/50  rounded-sm group cursor-pointer`}
@@ -90,7 +96,7 @@ const AlbumPage = () => {
 
                       <div className="flex items-center gap-3">
                         <img
-                          src={song.audioUrl}
+                          src={song.imageUrl}
                           alt={song.title}
                           className="size-10"
                         />
@@ -101,13 +107,17 @@ const AlbumPage = () => {
                           </div>
                           <div>{song?.artist}</div>
                         </div>
+                      </div>
 
+                      <div className="flex items-center gap-3">
                         <div className="flex items-center ">
                           {song.createdAt?.split("T")[0]}
                         </div>
+                      </div>
 
+                      <div className="flex items-center gap-3">
                         <div className="flex items-center ">
-                          {song.duration}
+                          {formatDuration(song.duration)}
                         </div>
                       </div>
                     </div>
