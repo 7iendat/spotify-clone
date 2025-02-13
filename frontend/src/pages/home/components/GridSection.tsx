@@ -1,6 +1,7 @@
 import GridSectionSkeleton from "@/components/skeletons/GridSectionSkeleton";
 import { Button } from "@/components/ui/button";
 import { Song } from "@/types";
+import PlayButton from "./PlayButton";
 
 type GridSectionProps = {
   title: string;
@@ -35,6 +36,7 @@ const GridSection = ({ title, songs, isLoading }: GridSectionProps) => {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {/* add play button */}
+                <PlayButton song={song} />
               </div>
             </div>
             <h3 className="font-medium mb-2 truncate">{song.title}</h3>
