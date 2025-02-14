@@ -15,7 +15,7 @@ const SongTable = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="to-zinc-400">Loading</div>
+        <div className="to-zinc-400">Loading songs...</div>
       </div>
     );
   }

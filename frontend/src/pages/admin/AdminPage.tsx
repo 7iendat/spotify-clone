@@ -17,7 +17,7 @@ const AdminPage = () => {
     fetchAlbums();
     fetchStats();
   }, [fetchAlbums, fetchSongs, fetchStats]);
-  console.log("check => ", isAdmin, isLoading);
+  console.log("check  => ", isAdmin, isLoading);
   if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
 
   return (
@@ -36,7 +36,7 @@ const AdminPage = () => {
           </TabsTrigger>
 
           <TabsTrigger
-            value="songs"
+            value="albums"
             className="data-[state=active]:bg-zinc-700"
           >
             <Album className="size-4 mr-2" />
