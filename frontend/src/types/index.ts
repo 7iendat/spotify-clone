@@ -23,7 +23,7 @@ export interface Stats {
   totalSongs: number;
   totalAlbums: number;
   totalUsers: number;
-  totalArtists: number;
+  uniqueArtist: number;
 }
 
 export interface Message {
