@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { io } from "socket.io-client";
 
 interface ChatStore {
-  users: [];
+  users: User[];
   isLoading: boolean;
   error: string | null;
   socket: any;
@@ -23,17 +23,17 @@ interface ChatStore {
   setSelectedUser: (user: User | null) => void;
 }
 
-const baseUrl = "http://localhost:5000";
-const socket = io(baseUrl, {
+const socket = io("http://localhost:5000", {
   autoConnect: false,
   withCredentials: true,
+  transports: ["websocket"],
 });
 
 export const useChatStore = create<ChatStore>((set, get) => ({
   users: [],
   isLoading: false,
   error: null,
-  socket: null,
+  socket: socket,
   isConnected: false,
   onlineUsers: new Set(),
   userActivities: new Map(),
@@ -44,9 +44,12 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     if (!get().isConnected) {
       socket.auth = { userId };
       socket.connect();
+      socket.on("connection", (socket) => {
+        console.log("User connected:", socket.id);
+      });
       socket.emit("user_connected", userId);
 
-      socket.on("user_online", (users: string[]) => {
+      socket.on("users_online", (users: string[]) => {
         set({ onlineUsers: new Set(users) });
       });
 
@@ -74,7 +77,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         }));
       });
 
-      socket.on("message_sent", (message: Message) => {
+      socket.on("send_message", (message: Message) => {
         set((state) => ({
           messages: [...state.messages, message],
         }));
