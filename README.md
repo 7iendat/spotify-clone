@@ -59,7 +59,7 @@ Ensure you have the following installed:
    ```
 5. **Start the frontend**:
    ```sh
-   cd frontdend
+   cd frontend
    ```
    ```sh
    npm run dev
